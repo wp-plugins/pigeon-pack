@@ -12,27 +12,29 @@ Free and easy email marketing, newsletters, and campaigns; built into your WordP
 The Pigeon Pack plugin is completely free! This plugin aims to solve one problem, putting the power of email marketing, newsletters, and campaigns in the hands of YOU. Now you do not need to pay for a third party like MailChimp or Constant Contact to reach out to your customers. You have full control and power over your own lists and you can bring them anywhere at any time. The Pigeon Pack plugin is GPL and free to use on any WordPress website. 
 
 Features of this plugin include:
-*	Single Email Campaigns
-*	WordPress Post Campaigns (single or digest)
-*	Email a specific role or create a list
-*	Easy to use shortcodes and widgets for users to sign up for your emails from your website
-*	Create custom fields for your lists
-*	Double Opt-in available for lists
-*	Easily extendable with filters and action hooks
+
+* Single Email Campaigns
+* WordPress Post Campaigns (single or digest)
+* Email a specific role or create a list
+* Easy to use shortcodes and widgets for users to sign up for your emails from your website
+* Create custom fields for your lists
+* Double Opt-in available for lists
+* Easily extendable with filters and action hooks
 
 You can follow the development of this plugin at [GitHub](https://github.com/PigeonPack/PigeonPack)!
 
 Due to the complex nature of this plugin, we are unable to provide free support. We will respond to bugs using the WordPress support forums.
 
 Premium Pigeon Pack Add-ons (COMING SOON):
-*	Analytics - Learn more about what your subscribers are doing!
-*	Autoresponders (Events) - Send a series of messages to new subscribers.
-*	RSS Campaigns - Import the RSS feed from another site to send to your subscribers.
-*	Import Scripts - Import subscribers from other lists using CSV, MailChimp, Salesforce, Highrise, Constant Contact and more!
-*	Bounce Detector - Use the power of the Pigeon Pack servers to detect when a subscriber's email is bounced to help reduce the chances of your server being flagged as SPAM.
-*	Responsive Email Template - No more plain-jane emails!
-*	Notifications - Receive notifications whenever someone subscribers or unsubscribers from your list.
-*	Amazon SES - Built-in functionality to work directly with the Amazon Simple Email Server service.
+
+* Analytics - Learn more about what your subscribers are doing!
+* Autoresponders (Events) - Send a series of messages to new subscribers.
+* RSS Campaigns - Import the RSS feed from another site to send to your subscribers.
+* Import Scripts - Import subscribers from other lists using CSV, MailChimp, Salesforce, Highrise, Constant Contact and more!
+* Bounce Detector - Use the power of the Pigeon Pack servers to detect when a subscriber's email is bounced to help reduce the chances of your server being flagged as SPAM.
+* Responsive Email Template - No more plain-jane emails!
+* Notifications - Receive notifications whenever someone subscribers or unsubscribers from your list.
+* Amazon SES - Built-in functionality to work directly with the Amazon Simple Email Server service.
 
 Please visit the Pigeon Pack website for access to [support and premium membership add-ons](http://pigeonpack.com/)!
 
