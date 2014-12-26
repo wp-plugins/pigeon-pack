@@ -644,10 +644,10 @@ if ( !function_exists( 'pigeonpack_unmerge_postdata' ) ) {
 		
 		if ( !empty( $posts ) ) {
 			
-			 if ( 1 <= count( $posts ) && preg_match( '/{{POST_LOOP_START}}(.*){{POST_LOOP_END}}/is', $message, $matches ) ) {
+			 if ( 1 <= count( $posts ) && preg_match( '/{{POST_LOOP_START}}(.*){{POST_LOOP_END}}/is', $message, $loop_matches ) ) {
 				//digest
 				
-				$digest_merge = $matches[1];	
+				$digest_merge = $loop_matches[1];	
 				
 				foreach( $posts as $post_id ) {
 					
@@ -663,14 +663,37 @@ if ( !function_exists( 'pigeonpack_unmerge_postdata' ) ) {
 						$new_merge = str_ireplace( '{{POST_AUTHOR}}', get_the_author_meta( 'display_name', $digest_post->post_author ), $new_merge );
 						$new_merge = str_ireplace( '{{POST_DATE}}', date_i18n( $dateformat, strtotime( $digest_post->post_date ) ), $new_merge );
 						$new_merge = str_ireplace( '{{POST_URL}}', apply_filters( 'pigeonpack_permalink', get_permalink( $digest_post->ID ) ), $new_merge );
+
+						if ( preg_match_all( '/{{POST_FEATURED_IMAGE\s?(.*)}}/i', $new_merge, $matches ) ) {
+							if ( !empty( $matches ) ) {
+								foreach ( $matches[0] as $key => $match ) {
+									if ( empty( $matches[1][$key] ) ) {
+										$new_merge = str_ireplace( $match, get_the_post_thumbnail( $digest_post->ID, apply_filters( 'pigeonpack_post_featured_image', 'post-thumbnail' ) ), $new_merge );
+									} else {
+										$sizes_string = str_replace( //Convert texturized single and double quotes into plaintext single and double quotes
+											array( '&#8220;', 	'&#8221;', 	'&#8242;', 	'&#8243;', 	'&#8216;', 	'&#8217;' ), 
+											array( '"', 		'"', 		"'", 		'"', 		"'", 		"'" ), 
+											$matches[1][$key] 
+										);
+										if ( preg_match( '/size=[\'"](.*)[\'"]/i', $sizes_string, $size_matches ) ) {
+											$new_merge = str_ireplace( $match, get_the_post_thumbnail( $digest_post->ID, $size_matches[1] ), $new_merge );
+										} else if ( preg_match( '/width=[\'"](\d*)[\'"]\s?height=[\'"](\d*)[\'"]/i', $sizes_string, $size_matches ) ) {
+											$new_merge = str_ireplace( $match, get_the_post_thumbnail( $digest_post->ID, array( $size_matches[1], $size_matches[2] ) ), $new_merge );
+										} else if ( preg_match( '/height=[\'"](\d*)[\'"]\s?width=[\'"](\d*)[\'"]/i', $sizes_string, $size_matches ) ) {
+											$new_merge = str_ireplace( $match, get_the_post_thumbnail( $digest_post->ID, array( $size_matches[2], $size_matches[1] ) ), $new_merge );
+										}
+									}
+								}
+							}
+						}
 						
 						$digest_merged[] = $new_merge;
 					
 					}
 					
 				}
-			
-				$merged_message = str_ireplace( $matches[0], implode( $digest_merged ), $merged_message );
+				
+				$merged_message = str_ireplace( $loop_matches[0], implode( $digest_merged ), $merged_message );
 				
 			} else {
 				//individual
@@ -687,7 +710,29 @@ if ( !function_exists( 'pigeonpack_unmerge_postdata' ) ) {
 						list( $merged_subject, $merged_message ) = str_ireplace( '{{POST_AUTHOR}}', get_the_author_meta( 'display_name', $ind_post->post_author ), array( $merged_subject, $merged_message ) );
 						list( $merged_subject, $merged_message ) = str_ireplace( '{{POST_DATE}}', date_i18n( $dateformat, strtotime( $ind_post->post_date ) ), array( $merged_subject, $merged_message ) );
 						$merged_message = str_ireplace( '{{POST_URL}}', apply_filters( 'pigeonpack_permalink', get_permalink( $ind_post->ID ) ), $merged_message );
-					
+						
+						if ( preg_match_all( '/{{POST_FEATURED_IMAGE\s?(.*)}}/i', $merged_message, $matches ) ) {
+							if ( !empty( $matches ) ) {
+								foreach ( $matches[0] as $key => $match ) {
+									if ( empty( $matches[1][$key] ) ) {
+										$merged_message = str_ireplace( $match, get_the_post_thumbnail( $ind_post->ID, apply_filters( 'pigeonpack_post_featured_image', 'post-thumbnail' ) ), $merged_message );
+									} else {
+										$sizes_string = str_replace( //Convert texturized single and double quotes into plaintext single and double quotes
+											array( '&#8220;', 	'&#8221;', 	'&#8242;', 	'&#8243;', 	'&#8216;', 	'&#8217;' ), 
+											array( '"', 		'"', 		"'", 		'"', 		"'", 		"'" ), 
+											$matches[1][$key] 
+										);
+										if ( preg_match( '/size=[\'"](.*)[\'"]/i', $sizes_string, $size_matches ) ) {
+											$merged_message = str_ireplace( $match, get_the_post_thumbnail( $ind_post->ID, $size_matches[1] ), $merged_message );
+										} else if ( preg_match( '/width=[\'"](\d*)[\'"]\s?height=[\'"](\d*)[\'"]/i', $sizes_string, $size_matches ) ) {
+											$merged_message = str_ireplace( $match, get_the_post_thumbnail( $ind_post->ID, array( $size_matches[1], $size_matches[2] ) ), $merged_message );
+										} else if ( preg_match( '/height=[\'"](\d*)[\'"]\s?width=[\'"](\d*)[\'"]/i', $sizes_string, $size_matches ) ) {
+											$merged_message = str_ireplace( $match, get_the_post_thumbnail( $ind_post->ID, array( $size_matches[2], $size_matches[1] ) ), $merged_message );
+										}
+									}
+								}
+							}
+						}
 					}
 					
 				}
